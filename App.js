@@ -8,27 +8,22 @@ function App() {
   const [page, setPage] = useState('upload');
   const [result, setResult] = useState(null);
 
-  const handleVideoUpload = async (file, captchaToken) => {
+  const handleVideoUpload = async (file) => {
     setPage('loading');
 
-    try {
-      const formData = new FormData();
-      formData.append('video', file);
-      formData.append('captcha', captchaToken);
-
-      // Replace with your actual backend URL
-      const response = await fetch('https://your-backend-url/api/detect', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await response.json();
-      setResult(data.message || "Detection completed.");
-    } catch (error) {
-      setResult('Error: Unable to process the video. Please try again.');
-    }
+    // Simulate a backend call
+    const response = await fakeBackendCall(file);
+    setResult(response);
 
     setPage('result');
+  };
+
+  const fakeBackendCall = (file) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("The video is Real!"); // Replace with actual backend logic
+      }, 3000); // Simulate delay
+    });
   };
 
   return (
